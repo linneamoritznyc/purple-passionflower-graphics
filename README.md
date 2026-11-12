@@ -20,3 +20,7 @@ The photo is a screenshot crop. Swap in a larger photo you own before selling.
 Kept seeds (in `seeds/`): 2, 9, 14, 18, 23, 24.
 
 Kept SFW ikat cases with no logo or text (in `sfw-nologo/`): 16 dark green branches, 17 purple band, 19 green leaf with ring, 20 blue roots. Source: sfw-merch-print-files `files/phone-cases/cases4.py`.
+
+## Ikat generator
+`ikatgen.py` makes two-colour ikat cases in the SFW style from a seed (roots, tendril, corona, leaf, flower, ripples, blobs, weave, banded stripe, nematode). `python ikatgen.py 1 24`.
+`keep/sfw-four-cases-strip.png`: the four SFW no-logo cases side by side.
