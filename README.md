@@ -36,3 +36,6 @@ Kept style seeds (in `keep/styles/`): 3 torn at zoom 0.7, 9 knit, 11 moire, 16 t
 
 ## Leaf x torn band
 `combine.py`: 12 ways to cross the fringed leaf (ikat 50) with the torn striped band (torn 105). `python combine.py 0 24`.
+
+## Pods
+`pods.py`: weird pod ideas in plum on cream (chain, spawn, mitosis, many eyes, nested, bald eyes, legs, tendril pods, rain, cross section, merged, inverted). `python pods.py 0 24`.
