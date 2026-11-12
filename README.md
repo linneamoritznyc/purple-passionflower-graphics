@@ -33,3 +33,6 @@ Kept style seeds (in `keep/styles/`): 3 torn at zoom 0.7, 9 knit, 11 moire, 16 t
 ## Wild generator
 `wild.py`: 22 unrelated concepts, one per seed (pixel sort, RGB split, aurora, Swiss grid, reaction-diffusion, flow field, stained glass, truchet, slit-scan, kaleidoscope, thermal, xerox, Albers squares, dot fade, circle packing, interference, L-system, mosaic, stacked arcs, string art, posterized bands, attractor).
 `collection.png`: every kept design on one sheet.
+
+## Leaf x torn band
+`combine.py`: 12 ways to cross the fringed leaf (ikat 50) with the torn striped band (torn 105). `python combine.py 0 24`.
