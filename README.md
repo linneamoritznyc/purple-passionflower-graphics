@@ -39,3 +39,6 @@ Kept style seeds (in `keep/styles/`): 3 torn at zoom 0.7, 9 knit, 11 moire, 16 t
 
 ## Pods
 `pods.py`: weird pod ideas in plum on cream (chain, spawn, mitosis, many eyes, nested, bald eyes, legs, tendril pods, rain, cross section, merged, inverted). `python pods.py 0 24`.
+
+## Collage
+`collage.py`: landscape botanical collages (3600x1950) in cream, navy and lilac, with ikat and torn edges, tendrils, rosette, spores, lumpy ring, splatter. `python collage.py 0 9`.
