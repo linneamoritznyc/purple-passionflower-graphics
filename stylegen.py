@@ -121,9 +121,46 @@ def woodgrain(s):
     u=(np.hypot((s.xx-cx)*s.r.uniform(1,3),s.yy*.15)+s.noise(3,s.r.uniform(80,200)*s.k)+s.noise(6,4*s.k))/(s.r.uniform(45,80)*s.k)
     img[np.abs(u%1-.5)<s.r.uniform(.1,.25)]=fg; return s.grain(img,.06)
 
+
+def tear(s,M,fg,img,fiber=hx("FBF8F2")):
+    d=ndi.distance_transform_edt(M)-ndi.distance_transform_edt(~M); rough=s.noise(60,5*s.k)+s.noise(200,2*s.k)
+    core=(d+rough)>0; fb=((d+rough+s.r.uniform(8,16)*s.k)>0)&~core
+    sh=np.roll(core|fb,(int(6*s.k),int(4*s.k)),(0,1))&~(core|fb); img[sh]*=.82; img[fb]=fiber; img[core]=fg; return img
+def collage(s):
+    img=s.flat(s.paper())
+    for _ in range(s.r.randint(2,3)): img=tear(s,s.shape(),s.ink() if s.r.random()<.7 else s.paper(),img)
+    return s.grain(img,.05)
+def flowermask(s,thr=.4):
+    ph=Image.open(os.path.join(HERE,"plates/passiflora.png")).convert("RGB"); sc=s.r.uniform(9.5,12.5)*s.k
+    ph=ph.resize((int(ph.width*sc),int(ph.height*sc)),Image.LANCZOS).rotate(s.r.uniform(0,360),Image.BICUBIC)
+    can=Image.new("RGB",(s.W,s.H)); can.paste(ph,(int(s.W/2-ph.width/2),int(s.H/2-ph.height/2)))
+    a=np.asarray(can,np.float32)/255; lum=.3*a[...,0]+.59*a[...,1]+.11*a[...,2]
+    lum[(a[...,1]>a[...,0])&(a[...,1]>a[...,2])&(lum<.45)]=0; return lum
+def jacquard(s):
+    lum=flowermask(s); a,b=s.paper(),s.ink(); M=ndi.gaussian_filter(lum,4*s.k)>s.r.uniform(.3,.45)
+    s2=S.__new__(S); s2.__dict__.update(s.__dict__); s2.shape=lambda pool=None:M; return knit(s2)
+def halftone(s):
+    lum=ndi.gaussian_filter(flowermask(s),3*s.k); bg,fg=s.paper(),s.ink(); im=Image.new("RGB",(s.W,s.H),tuple(int(v) for v in bg)); d=ImageDraw.Draw(im)
+    cell=s.r.uniform(18,34)*s.k; ang=math.radians(s.r.choice([0,15,45])); ca,sa=math.cos(ang),math.sin(ang); R=int(max(s.W,s.H)*.8)
+    for i in np.arange(-R,R,cell):
+        for j in np.arange(-R,R,cell):
+            x=s.W/2+i*ca-j*sa; y=s.H/2+i*sa+j*ca
+            if 0<=x<s.W and 0<=y<s.H:
+                v=lum[int(y),int(x)]
+                if v>.05: r=cell*.62*v**.7; d.ellipse([x-r,y-r,x+r,y+r],fill=tuple(int(c) for c in fg))
+    return s.grain(np.asarray(im,np.float32),.05)
+def rug(s):
+    M=s.shape(); bg,fg=s.paper(),s.ink(); im=Image.fromarray(s.flat(bg*.85).astype(np.uint8)); d=ImageDraw.Draw(im)
+    n=int(s.W*s.H/(14*s.k+2)**2*1.6); ys=s.g.uniform(0,s.H,n); xs=s.g.uniform(0,s.W,n); L=s.r.uniform(8,16)*s.k
+    for x,y in zip(xs,ys):
+        c=fg if M[int(y),int(x)] else bg; t=s.g.uniform(.8,1.15); a=s.g.uniform(0,6.283)
+        d.line([(x,y),(x+L*math.cos(a),y+L*math.sin(a))],fill=tuple(int(min(255,v*t)) for v in c),width=max(2,int(5*s.k)))
+    return s.grain(np.asarray(im,np.float32),.03)
+
 STYLES=[linocut,riso,stitch,torn,cyanotype,batik,shibori,marble,spray,knit,topo,moire,woodgrain]
+STYLES_V1=list(STYLES); NEW=[collage,jacquard,halftone,rug,torn,knit,moire]
 def make(seed,full=False,zoom=1.0):
-    st=STYLES[seed%len(STYLES)]; o=S(seed,full); o.zoom=zoom; return st(o),st.__name__
+    st=STYLES[seed%len(STYLES)] if seed<=26 else (STYLES+NEW)[seed%len(STYLES+NEW)]; o=S(seed,full); o.zoom=zoom; return st(o),st.__name__
 
 if __name__=="__main__":
     s0,c=int(sys.argv[1]),int(sys.argv[2]); full=len(sys.argv)>3; out=os.path.join(HERE,"styles"); os.makedirs(out,exist_ok=True)
