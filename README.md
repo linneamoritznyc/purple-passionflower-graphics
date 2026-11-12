@@ -7,7 +7,7 @@ Code-generated graphics from the passion flower corona: banded purple and white 
 - `mockups/` phone case previews
 - `sheet.png` all designs side by side
 
-## Halftone (pixel micrograph style)
+## Dot cases from a photo
 
-`halftone.py` turns plates into a honeycomb dot texture and clips it into one huge shape on a flat colour. Output in `halftone/` (1800x3680), preview in `halftone_sheet.png`.
-Put real passion flower photos in `plates/` (white = flower) and they replace the generated plates.
+`dots.py` turns the passion flower photo in `plates/passiflora.png` into honeycomb dots, maps its colours to the brand palette and writes 4 cases to `dots/` (1800x3680). Preview: `dots_sheet.png`.
+The photo is a screenshot crop. Swap in a larger photo you own before selling.
