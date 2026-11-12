@@ -23,4 +23,5 @@ Kept SFW ikat cases with no logo or text (in `sfw-nologo/`): 16 dark green branc
 
 ## Ikat generator
 `ikatgen.py` makes two-colour ikat cases in the SFW style from a seed (roots, tendril, corona, leaf, flower, ripples, blobs, weave, banded stripe, nematode). `python ikatgen.py 1 24`.
+Kept ikat seeds (in `keep/ikat/`): 5, 17, 18.
 `keep/sfw-four-cases-strip.png`: the four SFW no-logo cases side by side.
