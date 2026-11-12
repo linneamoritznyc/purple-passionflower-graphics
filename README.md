@@ -42,3 +42,6 @@ Kept style seeds (in `keep/styles/`): 3 torn at zoom 0.7, 9 knit, 11 moire, 16 t
 
 ## Collage
 `collage.py`: landscape botanical collages (3600x1950) in cream, navy and lilac, with ikat and torn edges, tendrils, rosette, spores, lumpy ring, splatter. `python collage.py 0 9`.
+
+## Mycelium
+`mycelium.py`: hyphae grow from spores, branch, and fuse when they meet. Modes: one spore, several colonies, rising from the bottom edge, ikat. `python mycelium.py 0 8`.
