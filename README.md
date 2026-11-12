@@ -28,3 +28,4 @@ Kept ikat seeds (in `keep/ikat/`): 5, 17, 18, 29.
 
 ## Style generator
 `stylegen.py` renders a seed in one of 13 print and textile styles: linocut, riso, stitch, torn paper, cyanotype, batik, shibori, marbling, spray stencil, knit, topo, moire, woodgrain. `python stylegen.py 1 26` for previews, add `full` for 1800x3680.
+Kept style seeds (in `keep/styles/`): 3 torn at zoom 0.7, 9 knit, 11 moire, 16 torn.

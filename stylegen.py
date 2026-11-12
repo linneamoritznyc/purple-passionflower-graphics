@@ -21,6 +21,9 @@ class S:
         f=s.r.choice(pool or IG.SHAPES)
         f(d,s.r,m) if f is IG.s_flower else f(d,s.r)
         if s.r.random()<.3: m=m.transpose(Image.FLIP_LEFT_RIGHT)
+        z=getattr(s,"zoom",1.0)
+        if z!=1.0:
+            sm=m.resize((int(1800*z),int(3680*z)),Image.BILINEAR); m=Image.new("L",(1800,3680),0); m.paste(sm,((1800-sm.width)//2,(3680-sm.height)//2))
         return np.asarray(m.resize((s.W,s.H),Image.BILINEAR))>127
     def grain(s,img,a=.06):
         n=s.g.normal(0,1,img.shape[:2])[...,None]; return Image.fromarray(np.clip(img*(1+a*n),0,255).astype(np.uint8))
@@ -119,8 +122,8 @@ def woodgrain(s):
     img[np.abs(u%1-.5)<s.r.uniform(.1,.25)]=fg; return s.grain(img,.06)
 
 STYLES=[linocut,riso,stitch,torn,cyanotype,batik,shibori,marble,spray,knit,topo,moire,woodgrain]
-def make(seed,full=False):
-    st=STYLES[seed%len(STYLES)]; return st(S(seed,full)),st.__name__
+def make(seed,full=False,zoom=1.0):
+    st=STYLES[seed%len(STYLES)]; o=S(seed,full); o.zoom=zoom; return st(o),st.__name__
 
 if __name__=="__main__":
     s0,c=int(sys.argv[1]),int(sys.argv[2]); full=len(sys.argv)>3; out=os.path.join(HERE,"styles"); os.makedirs(out,exist_ok=True)
