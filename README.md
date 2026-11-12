@@ -18,3 +18,5 @@ The photo is a screenshot crop. Swap in a larger photo you own before selling.
 - `python gen.py 14 1 full` renders seed 14 at 1800x3680 into `seeds/`.
 
 Kept seeds (in `seeds/`): 2, 9, 14, 18, 23, 24.
+
+Kept SFW ikat cases with no logo or text (in `sfw-nologo/`): 16 dark green branches, 17 purple band, 19 green leaf with ring, 20 blue roots. Source: sfw-merch-print-files `files/phone-cases/cases4.py`.
